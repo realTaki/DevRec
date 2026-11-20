@@ -85,12 +85,22 @@
      r5: 0.6029411764705882
      r10: 0.8725490196078431
 
-## 数据与原论文 Java 包
+## 目录
 
-数据已作为公开数据集 [DevRec: Developer Recommendation for Bug Triage](https://www.kaggle.com/datasets/takiwang/devrec) 发布（CC BY 4.0）。代码（本仓库的 Python 复现和原论文 Java 源码）留在本仓库，不放在 Kaggle 上。
+### `reproduction-python/`
+
+本仓库对论文方法的 Python 复现（`DevRec.py`、`Pretreatment.py`、`mlknn.py`）。对应测试在 `reproduction-python/tests/`。
+
+运行 `reproduction-python/DevRec.py` 前，请从下面的 Kaggle 数据集下载 `aspectj/bugs.csv`，保存为 `reproduction-python/AspectJ.csv`（与脚本中的相对路径一致；该路径已写入 `.gitignore`）。请在 `reproduction-python/` 目录下运行该脚本。
+
+### `original-java/`
+
+论文原作者提供的 Java 源码（包路径保持不变）。数据不在本仓库；原始 ARFF/XML 在 Kaggle 数据集的 `raw/arff/`。
+
+## 数据
+
+数据已作为公开数据集 [DevRec: Developer Recommendation for Bug Triage](https://www.kaggle.com/datasets/takiwang/devrec) 发布（CC BY 4.0）。代码留在本仓库，不放在 Kaggle 上。
 
 https://www.kaggle.com/datasets/takiwang/devrec
 
-运行 `source/DevRec.py` 前，请从该数据集下载 `aspectj/bugs.csv`，放到 `source/AspectJ.csv`（与脚本中的相对路径一致；该路径已写入 `.gitignore`）。
-
-五项目预处理表在数据集里按 `{gcc,openoffice,mozilla,netbeans,eclipse}/fold{0-9}/` 存放（`reports.parquet`、`terms.parquet`、`vocab.csv`）。原始 ARFF/XML 在 `raw/arff/`。原论文 Java 源码在本仓库 `src/`。本仓库不再包含原来的 `DevRec-java.7z` 或 `source/AspectJ.csv`。
+五项目预处理表按 `{gcc,openoffice,mozilla,netbeans,eclipse}/fold{0-9}/` 存放（`reports.parquet`、`terms.parquet`、`vocab.csv`）。原始 ARFF/XML 在 `raw/arff/`。本仓库不再包含原来的 `DevRec-java.7z` 或 `AspectJ.csv`。

@@ -25,7 +25,7 @@ def load_pretreatment():
     for name, attrs in stubs.items():
         modules[name] = ModuleType(name)
         vars(modules[name]).update(attrs)
-    path = Path(__file__).resolve().parents[1] / "source" / "Pretreatment.py"
+    path = Path(__file__).resolve().parents[1] / "Pretreatment.py"
     spec = importlib.util.spec_from_file_location("devrec_pretreatment_test", path)
     module = importlib.util.module_from_spec(spec)
     with patch.dict(sys.modules, modules):
