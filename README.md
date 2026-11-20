@@ -85,4 +85,10 @@
      r5: 0.6029411764705882
      r10: 0.8725490196078431
 
-原论文所提供的java代码在本仓库内也有提供。
+## 数据与原论文 Java 包
+
+原论文作者提供的 Java 复现包及预处理后的五项目 ARFF/XML 数据，以及本仓库 Python 复现所用的 AspectJ CSV，已作为公开数据集发布（CC BY 4.0）：
+
+https://www.kaggle.com/datasets/takiwang/devrec
+
+本仓库不再包含原来的 `DevRec-java.7z`。
