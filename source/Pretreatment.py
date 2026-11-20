@@ -181,32 +181,37 @@ class BR_MLkNN:
 
     def findgama(self, testX,testy,X,y):
         self.set(X,y)
-        recall5 = 0
-        recall10 = 0
-        for n in range(10):
-            print(" + [OK] wait for "+str(10-n)+" s!")
-            gamatest = [random.random() for i in range(5)] 
-            recalltest5 = 0
-            recalltest10 = 0
-            
-            for i in range(5):
-                print(" + [OK] tese gama["+str(i)+"] !")
-                while True:
-                    recalltest5 = self.test(testX, testy,5,gama = gamatest)
-                    recalltest10 = self.test(testX, testy,10,gama = gamatest)
-                    if recalltest5>recall5:
-                        self.gama5= gamatest
-                        recall5 = recalltest5
-                        gamatest[i]+=0.03
-                        
-                    if recalltest10>recall10:
-                        self.gama10= gamatest
-                        recall10 = recalltest10
-                        gamatest[i]+=0.03
-                        
-                    if gamatest[i]>0 or (recalltest5<recall5 and recalltest10<recall10):
-                        break
+        # Keep the ten starting points reproducible without changing caller RNG state.
+        rng = random.Random(0)
+        starts = [[rng.random() for _ in range(5)] for _ in range(10)]
+        self.gama5 = self._search_gama(testX, testy, 5, starts)
+        self.gama10 = self._search_gama(testX, testy, 10, starts)
         print(" + [OK]find gama:",self.gama5,self.gama10)
+
+    def _search_gama(self, testX, testy, recall, starts):
+        step = 0.03
+        max_steps = int(1.0 / step) + 1
+        best_gama = None
+        best_score = float("-inf")
+
+        for start in starts:
+            current = start[:]
+            current_score = self.test(testX, testy, recall, gama=current)
+            for i in range(len(current)):
+                for _ in range(max_steps):
+                    if current[i] >= 1.0:
+                        break
+                    candidate = current[:]
+                    candidate[i] = min(1.0, candidate[i] + step)
+                    candidate_score = self.test(testX, testy, recall, gama=candidate)
+                    if not candidate_score > current_score:
+                        break
+                    current, current_score = candidate, candidate_score
+
+            if best_gama is None or current_score > best_score:
+                best_gama, best_score = current[:], current_score
+
+        return best_gama
 
     def set(self,X,y):
         self.br_mlknn.fit(X,y)
@@ -256,14 +261,15 @@ class BR_MLkNN:
         term = X[:,0:lenth]
         Nd = self.dl_term.dot( numpy.ones((self.dl_term.shape[1],1)))
         Nb = term.dot( numpy.ones((self.dl_term.shape[1],1)))
-        self.dl_term[self.dl_term>0]=1
-        Nbd = term.dot(self.dl_term.T)
+        # Weight candidates must see the same fitted values and input features.
+        binary_dl_term = numpy.where(self.dl_term > 0, 1, self.dl_term)
+        Nbd = term.dot(binary_dl_term.T)
         term_score = Nbd/(-Nbd +Nd.T+Nb)
         score += gama[1]*(1 - term_score)
 
         # 计算每个开发者的话题亲和分数
         topic_score = X[:,lenth:lenth+ self.topiclenth]
-        topic_score[topic_score>0]=1
+        topic_score = numpy.where(topic_score > 0, 1, topic_score)
         topic_score= 1-(topic_score.dot(1-self.dl_topic.T))
         topic_score=gama[2]*topic_score    
         score +=  topic_score
