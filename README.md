@@ -87,10 +87,10 @@
 
 ## 数据与原论文 Java 包
 
-数据（五项目预处理 ARFF/XML，以及 Python 复现用的 AspectJ CSV）已作为公开数据集 [DevRec: Developer Recommendation for Bug Triage](https://www.kaggle.com/datasets/takiwang/devrec) 发布（CC BY 4.0）：
+数据已作为公开数据集 [DevRec: Developer Recommendation for Bug Triage](https://www.kaggle.com/datasets/takiwang/devrec) 发布（CC BY 4.0）。代码（本仓库的 Python 复现和原论文 Java 源码）留在本仓库，不放在 Kaggle 上。
 
 https://www.kaggle.com/datasets/takiwang/devrec
 
-运行 `source/DevRec.py` 前，请从该数据集下载 `data/aspectj/AspectJ.csv`，放到 `source/AspectJ.csv`（与脚本中的相对路径一致；该路径已写入 `.gitignore`）。
+运行 `source/DevRec.py` 前，请从该数据集下载 `aspectj/bugs.csv`，放到 `source/AspectJ.csv`（与脚本中的相对路径一致；该路径已写入 `.gitignore`）。
 
-原论文 Java 源码在本仓库 `src/` 目录。本仓库不再包含原来的 `DevRec-java.7z` 或 `source/AspectJ.csv`。
+五项目预处理表在数据集里按 `{gcc,openoffice,mozilla,netbeans,eclipse}/fold{0-9}/` 存放（`reports.parquet`、`terms.parquet`、`vocab.csv`）。原始 ARFF/XML 在 `raw/arff/`。原论文 Java 源码在本仓库 `src/`。本仓库不再包含原来的 `DevRec-java.7z` 或 `source/AspectJ.csv`。

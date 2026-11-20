@@ -7,7 +7,7 @@ import Pretreatment
 # 新建LDA模型
 lda =Pretreatment.LDA()
 # AspectJ.csv is no longer in this repo. Download it from
-# https://www.kaggle.com/datasets/takiwang/devrec (path in the dataset: data/aspectj/AspectJ.csv)
+# https://www.kaggle.com/datasets/takiwang/devrec (path in the dataset: aspectj/bugs.csv)
 # and place it at source/AspectJ.csv, next to this file, so the relative path below stays unchanged.
 Corpus ,Product,Component,Developer= lda.read_csv(dir="AspectJ.csv",summary=2,description=3,product = 4,component=5,assigned_to= 6,comment=7)
 Terms,Topics = lda.build_from_corpus(Corpus)
