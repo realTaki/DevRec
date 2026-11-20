@@ -1,3 +1,5 @@
 # Downloaded from https://www.kaggle.com/datasets/takiwang/devrec (aspectj/bugs.csv).
 # Keep this path so reproduction-python/DevRec.py can read AspectJ.csv from the same directory.
 reproduction-python/AspectJ.csv
+__pycache__/
+*.py[cod]
