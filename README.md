@@ -87,8 +87,10 @@
 
 ## 数据与原论文 Java 包
 
-原论文作者提供的 Java 复现包及预处理后的五项目 ARFF/XML 数据，以及本仓库 Python 复现所用的 AspectJ CSV，已作为公开数据集发布（CC BY 4.0）：
+数据（五项目预处理 ARFF/XML，以及 Python 复现用的 AspectJ CSV）已作为公开数据集 [DevRec: Developer Recommendation for Bug Triage](https://www.kaggle.com/datasets/takiwang/devrec) 发布（CC BY 4.0）：
 
 https://www.kaggle.com/datasets/takiwang/devrec
 
-本仓库不再包含原来的 `DevRec-java.7z`。
+运行 `source/DevRec.py` 前，请从该数据集下载 `data/aspectj/AspectJ.csv`，放到 `source/AspectJ.csv`（与脚本中的相对路径一致；该路径已写入 `.gitignore`）。
+
+原论文 Java 源码在本仓库 `src/` 目录。本仓库不再包含原来的 `DevRec-java.7z` 或 `source/AspectJ.csv`。

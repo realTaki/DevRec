@@ -1,0 +1,3 @@
+# Downloaded from https://www.kaggle.com/datasets/takiwang/devrec (data/aspectj/AspectJ.csv).
+# Keep this path so source/DevRec.py can read AspectJ.csv from the same directory.
+source/AspectJ.csv
